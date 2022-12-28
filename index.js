@@ -7,18 +7,18 @@ const data = workbook.Sheets[workbook.SheetNames[0]];
 const lastRowNumber = data['!ref'].split(':')[1].substring(1);
 
 const monthAbbrToMonthNum = {
-    'Янв': '01',
-    'Фев': '02',
-    'Мар': '03',
-    'Апр': '04',
-    'Мая': '05',
-    'ИюН': '06',
-    'ИюЛ': '07',
-    'Авг': '08',
-    'Сен': '09',
-    'Окт': '10',
-    'Ноя': '11',
-    'Дек': '12',
+    'Янв': 1,
+    'Фев': 2,
+    'Мар': 3,
+    'Апр': 4,
+    'Мая': 5,
+    'ИюН': 6,
+    'ИюЛ': 7,
+    'Авг': 8,
+    'Сен': 9,
+    'Окт': 10,
+    'Ноя': 11,
+    'Дек': 12,
 }
 
 const dataToWrite = [];
@@ -57,5 +57,12 @@ function formatDate(date) {
     }
     const year = parts[2];
     const day = parts[0];
-    return `${year}-${month}-${day}`;
+    return `${year}-${appendZero(month)}-${appendZero(day)}`;
+}
+
+function appendZero(num) {
+    if (num < 10) {
+        return `0${num}`;
+    }
+    return num;
 }

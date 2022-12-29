@@ -60,6 +60,6 @@ for (let i = 0; i < copyOutputLinks.length; i++) {
 fs.writeFileSync('./files/output_title_links.json', JSON.stringify(copyOutputLinks) ,{encoding:'utf8',flag:'w'})
 
 function formatTitle(originalText, reg, link) {
-    const href = `<a href="${link}">${reg}</a>`;
+    const href = `<a target="_blank" href="${link}">${reg}</a>`;
     return originalText.replace(reg, href);
 }

@@ -28,20 +28,31 @@ for(let i = 3; i <= lastRowNumber; i++) {
     const contentCol = `B${i}`;
     
     if (data[dateCol].v) {
-        dataToWrite.push({
-            date: data[dateCol].v,
-            formattedDate: formatDate(data[dateCol].v),
-            contents: [],
-        });
+        const date = data[dateCol].v.trim();
+        const formattedDate = formatDate(date);
+        const year = Number(formattedDate.split('-')[0]);
+        if (year > 2030) {
+            break;
+        }
+        if (year >= 2023) {
+            dataToWrite.push({
+                date: date,
+                formattedDate: formatDate(date),
+                contents: [],
+            });
+        }
     }
 
-    dataToWrite[dataToWrite.length - 1].contents.push(data[contentCol].v);
+    if (dataToWrite.length > 0) {
+        const contents = data[contentCol].v.trim();
+        dataToWrite[dataToWrite.length - 1].contents.push(contents);
+    }
 }
 
 fs.writeFileSync('./files/output.json', JSON.stringify(dataToWrite) ,{encoding:'utf8',flag:'w'})
 
 function formatDate(date) {
-    const parts = date.trim().split(' ');
+    const parts = date.split(' ');
     // 1 - day
     // 2 - month
     // 3 - year
